@@ -1,6 +1,7 @@
-const myCustomFunction = (name: string): string => `Hello ${name}`;
-function ciao(name: string): string {
-  return `Ciao ${name}`;
-}
+export type FiretableConfig = {
+  publicKey: string;
+};
 
-export { myCustomFunction, ciao };
+const initializeApp = (config: FiretableConfig): void => {};
+
+export { initializeApp };
