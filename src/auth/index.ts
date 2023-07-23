@@ -1,27 +1,13 @@
 import { getState, setState } from '../state';
 import { FiretableUser } from './types';
 
-export const getLoggedInUser = async (args: {
-    email: string;
-    password: string;
-}): Promise<{ user: FiretableUser; sessionToken: string }> => {
+export const getCurrentUser = async (): Promise<FiretableUser> => {
     const state = getState();
     if (!state) throw new Error('Firetable not initialized');
 
-    const { publicKey } = state.config;
-    const { email, password } = args;
+    if (!state.currentUser) throw new Error('No user logged in');
 
-    // STOPSHIP: make api request to login
-
-    return {
-        user: {
-            email,
-            displayName: null,
-            photoURL: null,
-            uid: '123',
-        },
-        sessionToken: '123',
-    };
+    return state.currentUser;
 };
 
 export const loginWithEmail = async (args: {
