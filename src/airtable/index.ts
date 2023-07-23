@@ -1,3 +1,10 @@
+import { executeApiRequest } from '../api';
+import {
+    CreateRecordInput,
+    CreateRecordOutput,
+} from '../api/routes/createRecord';
+import { FetchRecordInput, FetchRecordOutput } from '../api/routes/fetchRecord';
+import { v1APIRoute } from '../api/types';
 import { getState } from '../state';
 import { AirtableRecord } from './types';
 
@@ -14,12 +21,21 @@ export const fetchRecord = async <T extends object>(args: {
 
     const { tableId, recordId } = args;
 
-    // STOPSHIP: make api request to fetch record
+    const result = await executeApiRequest<
+        FetchRecordInput,
+        FetchRecordOutput<T>
+    >({
+        route: v1APIRoute.fetchRecord,
+        body: {
+            tableId,
+            recordId,
+            sessionToken,
+        },
+    });
 
-    return {
-        id: recordId,
-        fields: {} as T,
-    };
+    if (result.type === 'error') throw new Error(result.message);
+
+    return result.data.record;
 };
 
 export const createRecord = async <T extends object>(args: {
@@ -35,10 +51,19 @@ export const createRecord = async <T extends object>(args: {
 
     const { tableId } = args;
 
-    // STOPSHIP: make api request to fetch record
+    const result = await executeApiRequest<
+        CreateRecordInput<T>,
+        CreateRecordOutput<T>
+    >({
+        route: v1APIRoute.createRecord,
+        body: {
+            tableId,
+            fields: args.fields,
+            sessionToken,
+        },
+    });
 
-    return {
-        id: 'recordId',
-        fields: {} as T,
-    };
+    if (result.type === 'error') throw new Error(result.message);
+
+    return result.data.record;
 };

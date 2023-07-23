@@ -5,12 +5,5 @@ export type AirtableRecord<T extends object> = {
     fields: T;
 };
 
-export type AirtableValue =
-    | undefined
-    | string
-    | number
-    | boolean
-    | Collaborator
-    | ReadonlyArray<Collaborator>
-    | ReadonlyArray<string>
-    | ReadonlyArray<Attachment>;
+export type AirtableCollaborator = Collaborator;
+export type AirtableAttachment = Attachment;

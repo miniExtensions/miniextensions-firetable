@@ -1,3 +1,14 @@
+import { executeApiRequest } from '../api';
+import {
+    LoginWithEmailInput,
+    LoginWithEmailOutput,
+} from '../api/routes/loginWithEmail';
+import { LogoutInput, LogoutOutput } from '../api/routes/logout';
+import {
+    ValidateSessionInput,
+    ValidateSessionOutput,
+} from '../api/routes/validateSession';
+import { v1APIRoute } from '../api/types';
 import { getState, setState } from '../state';
 import { FiretableUser } from './types';
 
@@ -19,15 +30,25 @@ export const validateSession = async (args: {
 
     const { sessionToken } = args;
 
-    // STOPSHIP: make api request to validate session
+    const result = await executeApiRequest<
+        ValidateSessionInput,
+        ValidateSessionOutput
+    >({
+        route: v1APIRoute.validateSession,
+        body: {
+            sessionToken,
+        },
+    });
+
+    if (result.type === 'error') throw new Error(result.message);
+
+    setState({
+        ...getState(),
+        sessionToken,
+    });
 
     return {
-        user: {
-            email: '',
-            displayName: null,
-            photoURL: null,
-            uid: '123',
-        },
+        user: result.data.user,
     };
 };
 
@@ -37,32 +58,47 @@ export const loginWithEmail = async (args: {
 }): Promise<{ user: FiretableUser; sessionToken: string }> => {
     const state = getState();
     if (!state) throw new Error('Firetable not initialized');
+    if (state.sessionToken) throw new Error('Already logged in');
 
     const { publicKey } = state.config;
     const { email, password } = args;
 
-    // STOPSHIP: make api request to login
+    const result = await executeApiRequest<
+        LoginWithEmailInput,
+        LoginWithEmailOutput
+    >({
+        route: v1APIRoute.loginWithEmail,
+        body: {
+            email,
+            password,
+            publicKey,
+        },
+    });
+
+    if (result.type === 'error') throw new Error(result.message);
 
     return {
-        user: {
-            email,
-            displayName: null,
-            photoURL: null,
-            uid: '123',
-        },
-        sessionToken: '123',
+        user: result.data.user,
+        sessionToken: result.data.sessionToken,
     };
 };
 
-export const logoutFromFiretable = (): void => {
+export const logoutFromFiretable = async (): Promise<void> => {
     const state = getState();
     if (!state) throw new Error('Firetable not initialized');
 
     const { sessionToken } = state;
 
-    if (sessionToken) throw new Error('No session to logout from');
+    if (!sessionToken) throw new Error('No session to logout from');
 
-    // STOPSHIP: make api request to clear session
+    const result = await executeApiRequest<LogoutInput, LogoutOutput>({
+        route: v1APIRoute.loginWithEmail,
+        body: {
+            sessionToken,
+        },
+    });
+
+    if (result.type === 'error') throw new Error(result.message);
 
     setState({
         ...getState(),
