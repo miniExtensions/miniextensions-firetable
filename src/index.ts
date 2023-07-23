@@ -1,6 +1,12 @@
 import { setState } from './state';
 import { FiretableConfig } from './types';
-import { getCurrentUser, loginWithEmail, logoutFromFiretable } from './auth';
+import {
+    getCurrentUser,
+    loginWithEmail,
+    logoutFromFiretable,
+    validateSession,
+} from './auth';
+import { fetchRecord, createRecord } from './airtable';
 
 const initializeApp = (args: { config: FiretableConfig }): void => {
     setState({
@@ -10,4 +16,12 @@ const initializeApp = (args: { config: FiretableConfig }): void => {
     });
 };
 
-export { initializeApp, getCurrentUser, loginWithEmail, logoutFromFiretable };
+export {
+    initializeApp,
+    getCurrentUser,
+    loginWithEmail,
+    logoutFromFiretable,
+    validateSession,
+    fetchRecord,
+    createRecord,
+};

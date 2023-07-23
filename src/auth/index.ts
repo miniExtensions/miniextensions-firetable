@@ -23,7 +23,7 @@ export const validateSession = async (args: {
 
     return {
         user: {
-            email,
+            email: '',
             displayName: null,
             photoURL: null,
             uid: '123',
