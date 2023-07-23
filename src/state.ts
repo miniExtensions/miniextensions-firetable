@@ -3,7 +3,7 @@ import { FiretableConfig } from './types';
 
 type State = {
     config: FiretableConfig;
-    lastSessionToken: string | null;
+    sessionToken: string | null;
     currentUser: FiretableUser | null;
 };
 

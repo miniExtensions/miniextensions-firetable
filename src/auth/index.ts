@@ -10,6 +10,27 @@ export const getCurrentUser = async (): Promise<FiretableUser> => {
     return state.currentUser;
 };
 
+export const validateSession = async (args: {
+    sessionToken: string;
+}): Promise<{ user: FiretableUser }> => {
+    const state = getState();
+    if (!state) throw new Error('Firetable not initialized');
+    if (state.sessionToken) throw new Error('Already logged in');
+
+    const { sessionToken } = args;
+
+    // STOPSHIP: make api request to validate session
+
+    return {
+        user: {
+            email,
+            displayName: null,
+            photoURL: null,
+            uid: '123',
+        },
+    };
+};
+
 export const loginWithEmail = async (args: {
     email: string;
     password: string;
@@ -36,14 +57,15 @@ export const loginWithEmail = async (args: {
 export const logoutFromFiretable = (): void => {
     const state = getState();
     if (!state) throw new Error('Firetable not initialized');
-    const lastSessionToken = state.lastSessionToken;
 
-    if (!lastSessionToken) throw new Error('No session to logout from');
+    const { sessionToken } = state;
+
+    if (sessionToken) throw new Error('No session to logout from');
 
     // STOPSHIP: make api request to clear session
 
     setState({
         ...getState(),
-        lastSessionToken: null,
+        sessionToken: null,
     });
 };

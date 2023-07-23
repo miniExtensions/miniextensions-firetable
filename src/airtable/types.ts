@@ -1,10 +1,8 @@
 import { Attachment, Collaborator } from 'airtable';
 
-export type AirtableRecord = {
+export type AirtableRecord<T extends object> = {
     id: string;
-    fields: {
-        [key: string]: AirtableValue;
-    };
+    fields: T;
 };
 
 export type AirtableValue =
