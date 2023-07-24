@@ -77,6 +77,11 @@ export const loginWithEmail = async (args: {
 
     if (result.type === 'error') throw new Error(result.message);
 
+    setState({
+        ...getState(),
+        sessionToken: result.data.sessionToken,
+    });
+
     return {
         user: result.data.user,
         sessionToken: result.data.sessionToken,
