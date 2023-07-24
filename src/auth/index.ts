@@ -3,7 +3,6 @@ import {
     LoginWithEmailInput,
     LoginWithEmailOutput,
 } from '../api/routes/loginWithEmail';
-import { LogoutInput, LogoutOutput } from '../api/routes/logout';
 import {
     ValidateSessionInput,
     ValidateSessionOutput,
@@ -95,15 +94,6 @@ export const logoutFromFiretable = async (): Promise<void> => {
     const { sessionToken } = state;
 
     if (!sessionToken) throw new Error('No session to logout from');
-
-    const result = await executeApiRequest<LogoutInput, LogoutOutput>({
-        route: FireTableAPIRoute.logoutFromFiretable,
-        body: {
-            sessionToken,
-        },
-    });
-
-    if (result.type === 'error') throw new Error(result.message);
 
     setState({
         ...getState(),
