@@ -7,7 +7,6 @@ export enum FireTableAPIRoute {
     listRecords = 'listRecords',
     updateRecord = 'updateRecord',
     deleteRecord = 'deleteRecord',
-    logoutFromFiretable = 'logoutFromFiretable',
 }
 
 export type ExecuteApiRequestResult<Output> =
