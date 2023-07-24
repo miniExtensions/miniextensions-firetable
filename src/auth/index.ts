@@ -92,7 +92,7 @@ export const logoutFromFiretable = async (): Promise<void> => {
     if (!sessionToken) throw new Error('No session to logout from');
 
     const result = await executeApiRequest<LogoutInput, LogoutOutput>({
-        route: v1APIRoute.loginWithEmail,
+        route: v1APIRoute.logoutFromFiretable,
         body: {
             sessionToken,
         },

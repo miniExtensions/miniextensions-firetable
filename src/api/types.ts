@@ -4,6 +4,10 @@ export enum v1APIRoute {
     validateSession = 'validateSession',
     loginWithEmail = 'loginWithEmail',
     logout = 'logout',
+    listRecords = 'listRecords',
+    updateRecord = 'updateRecord',
+    deleteRecord = 'deleteRecord',
+    logoutFromFiretable = 'logoutFromFiretable',
 }
 
 export type ExecuteApiRequestResult<Output> =

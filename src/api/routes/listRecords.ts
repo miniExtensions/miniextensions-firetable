@@ -5,15 +5,22 @@ export type ListRecordsSort = {
     direction: 'asc' | 'desc';
 }[];
 
+export type ListRecordsFilter =
+    | {
+          type: 'formula';
+          formula: string;
+      }
+    | {
+          type: 'recordIds';
+          recordIds: string[];
+      };
+
 export type ListRecordsInput = {
     tableId: string;
     sessionToken: string;
-    pageSize: number | null;
-    maxRecords: number | null;
     offset: string | null;
-    view: string | null;
     sort: ListRecordsSort | null;
-    filterByFormula: string | null;
+    filter: ListRecordsFilter | null;
 };
 
 export type ListRecordsOutput<T extends object> = {

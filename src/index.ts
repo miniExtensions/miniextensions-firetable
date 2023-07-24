@@ -6,7 +6,13 @@ import {
     logoutFromFiretable,
     validateSession,
 } from './auth';
-import { fetchRecord, listRecords, createRecord } from './airtable';
+import {
+    fetchRecord,
+    listRecords,
+    createRecord,
+    updateRecord,
+    deleteRecord,
+} from './airtable';
 
 const initializeApp = (args: { config: FiretableConfig }): void => {
     setState({
@@ -25,6 +31,6 @@ export {
     fetchRecord,
     listRecords,
     createRecord,
-    updateRecords,
+    updateRecord,
     deleteRecord,
 };
