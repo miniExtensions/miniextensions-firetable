@@ -1,6 +1,7 @@
 import { FiretableUser } from '../../auth/types';
 
 export type ValidateSessionInput = {
+    publicKey: string;
     sessionToken: string;
 };
 

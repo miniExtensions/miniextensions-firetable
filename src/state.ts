@@ -17,3 +17,12 @@ export const getState = (): State => {
     if (!state) throw new Error('Firetable not initialized');
     return state;
 };
+
+export const getPublicKeyFromState = (state: State): string => {
+    const { config } = state;
+    const { publicKey } = config;
+
+    if (!publicKey) throw new Error('No public key found');
+
+    return publicKey;
+};

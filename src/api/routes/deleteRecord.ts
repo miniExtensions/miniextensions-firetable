@@ -1,4 +1,5 @@
 export type DeleteRecordInput = {
+    publicKey: string;
     tableId: string;
     sessionToken: string;
     recordId: string;

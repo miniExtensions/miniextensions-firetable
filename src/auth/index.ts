@@ -8,7 +8,7 @@ import {
     ValidateSessionOutput,
 } from '../api/routes/validateSession';
 import { FireTableAPIRoute } from '../api/types';
-import { getState, setState } from '../state';
+import { getPublicKeyFromState, getState, setState } from '../state';
 import { FiretableUser } from './types';
 
 export const getCurrentUser = async (): Promise<FiretableUser> => {
@@ -25,6 +25,9 @@ export const validateSession = async (args: {
 }): Promise<{ user: FiretableUser }> => {
     const state = getState();
     if (!state) throw new Error('Firetable not initialized');
+
+    const publicKey = getPublicKeyFromState(state);
+
     if (state.sessionToken) throw new Error('Already logged in');
 
     const { sessionToken } = args;
@@ -34,9 +37,7 @@ export const validateSession = async (args: {
         ValidateSessionOutput
     >({
         route: FireTableAPIRoute.validateSession,
-        body: {
-            sessionToken,
-        },
+        body: { publicKey, sessionToken },
     });
 
     if (result.type === 'error') throw new Error(result.message);

@@ -16,6 +16,7 @@ export type ListRecordsFilter =
       };
 
 export type ListRecordsInput = {
+    publicKey: string;
     tableId: string;
     sessionToken: string;
     offset: string | null;

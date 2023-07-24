@@ -1,6 +1,7 @@
 import { AirtableRecord } from '../../airtable/types';
 
 export type FetchRecordInput = {
+    publicKey: string;
     tableId: string;
     recordId: string;
     sessionToken: string;

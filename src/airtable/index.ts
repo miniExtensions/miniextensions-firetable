@@ -19,7 +19,7 @@ import {
     UpdateRecordOutput,
 } from '../api/routes/updateRecord';
 import { FireTableAPIRoute } from '../api/types';
-import { getState } from '../state';
+import { getPublicKeyFromState, getState } from '../state';
 import { AirtableRecord } from './types';
 
 export const fetchRecord = async <T extends object>(args: {
@@ -28,6 +28,8 @@ export const fetchRecord = async <T extends object>(args: {
 }): Promise<AirtableRecord<T>> => {
     const state = getState();
     if (!state) throw new Error('Firetable not initialized');
+
+    const publicKey = getPublicKeyFromState(state);
 
     const { sessionToken } = state;
 
@@ -40,11 +42,7 @@ export const fetchRecord = async <T extends object>(args: {
         FetchRecordOutput<T>
     >({
         route: FireTableAPIRoute.fetchRecord,
-        body: {
-            tableId,
-            recordId,
-            sessionToken,
-        },
+        body: { publicKey, tableId, recordId, sessionToken },
     });
 
     if (result.type === 'error') throw new Error(result.message);
@@ -64,6 +62,8 @@ export const listRecords = async <T extends object>(args: {
     const state = getState();
     if (!state) throw new Error('Firetable not initialized');
 
+    const publicKey = getPublicKeyFromState(state);
+
     const { sessionToken } = state;
 
     if (!sessionToken) throw new Error('No logged in user');
@@ -76,6 +76,7 @@ export const listRecords = async <T extends object>(args: {
     >({
         route: FireTableAPIRoute.listRecords,
         body: {
+            publicKey,
             tableId,
             sessionToken,
             offset: offset ?? null,
@@ -99,6 +100,8 @@ export const createRecord = async <T extends object>(args: {
     const state = getState();
     if (!state) throw new Error('Firetable not initialized');
 
+    const publicKey = getPublicKeyFromState(state);
+
     const { sessionToken } = state;
 
     if (!sessionToken) throw new Error('No logged in user');
@@ -110,11 +113,7 @@ export const createRecord = async <T extends object>(args: {
         CreateRecordOutput<T>
     >({
         route: FireTableAPIRoute.createRecord,
-        body: {
-            tableId,
-            fields: args.fields,
-            sessionToken,
-        },
+        body: { publicKey, tableId, fields: args.fields, sessionToken },
     });
 
     if (result.type === 'error') throw new Error(result.message);
@@ -129,6 +128,8 @@ export const updateRecord = async <T extends object>(args: {
     const state = getState();
     if (!state) throw new Error('Firetable not initialized');
 
+    const publicKey = getPublicKeyFromState(state);
+
     const { sessionToken } = state;
 
     if (!sessionToken) throw new Error('No logged in user');
@@ -140,11 +141,7 @@ export const updateRecord = async <T extends object>(args: {
         UpdateRecordOutput<T>
     >({
         route: FireTableAPIRoute.updateRecord,
-        body: {
-            tableId,
-            record: args.record,
-            sessionToken,
-        },
+        body: { publicKey, tableId, record: args.record, sessionToken },
     });
 
     if (result.type === 'error') throw new Error(result.message);
@@ -161,6 +158,8 @@ export const deleteRecord = async (args: {
 
     const { sessionToken } = state;
 
+    const publicKey = getPublicKeyFromState(state);
+
     if (!sessionToken) throw new Error('No logged in user');
 
     const { tableId } = args;
@@ -170,11 +169,7 @@ export const deleteRecord = async (args: {
         DeleteRecordOutput
     >({
         route: FireTableAPIRoute.deleteRecord,
-        body: {
-            tableId,
-            recordId: args.recordId,
-            sessionToken,
-        },
+        body: { publicKey, tableId, recordId: args.recordId, sessionToken },
     });
 
     if (result.type === 'error') throw new Error(result.message);

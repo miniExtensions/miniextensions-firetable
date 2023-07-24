@@ -1,6 +1,7 @@
 import { AirtableRecord } from '../../airtable/types';
 
 export type CreateRecordInput<T extends object> = {
+    publicKey: string;
     tableId: string;
     fields: T;
     sessionToken: string;
