@@ -1,4 +1,4 @@
-export enum v1APIRoute {
+export enum FireTableAPIRoute {
     createRecord = 'createRecord',
     fetchRecord = 'fetchRecord',
     validateSession = 'validateSession',

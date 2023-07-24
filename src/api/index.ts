@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { v1APIRoute, ExecuteApiRequestResult } from './types';
+import { FireTableAPIRoute, ExecuteApiRequestResult } from './types';
 
 interface CommonArgs {
-    route: v1APIRoute;
+    route: FireTableAPIRoute;
 }
 
 interface POSTArgs<Input> extends CommonArgs {

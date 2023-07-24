@@ -18,7 +18,7 @@ import {
     UpdateRecordInput,
     UpdateRecordOutput,
 } from '../api/routes/updateRecord';
-import { v1APIRoute } from '../api/types';
+import { FireTableAPIRoute } from '../api/types';
 import { getState } from '../state';
 import { AirtableRecord } from './types';
 
@@ -39,7 +39,7 @@ export const fetchRecord = async <T extends object>(args: {
         FetchRecordInput,
         FetchRecordOutput<T>
     >({
-        route: v1APIRoute.fetchRecord,
+        route: FireTableAPIRoute.fetchRecord,
         body: {
             tableId,
             recordId,
@@ -74,7 +74,7 @@ export const listRecords = async <T extends object>(args: {
         ListRecordsInput,
         ListRecordsOutput<T>
     >({
-        route: v1APIRoute.listRecords,
+        route: FireTableAPIRoute.listRecords,
         body: {
             tableId,
             sessionToken,
@@ -109,7 +109,7 @@ export const createRecord = async <T extends object>(args: {
         CreateRecordInput<T>,
         CreateRecordOutput<T>
     >({
-        route: v1APIRoute.createRecord,
+        route: FireTableAPIRoute.createRecord,
         body: {
             tableId,
             fields: args.fields,
@@ -139,7 +139,7 @@ export const updateRecord = async <T extends object>(args: {
         UpdateRecordInput<T>,
         UpdateRecordOutput<T>
     >({
-        route: v1APIRoute.updateRecord,
+        route: FireTableAPIRoute.updateRecord,
         body: {
             tableId,
             record: args.record,
@@ -169,7 +169,7 @@ export const deleteRecord = async (args: {
         DeleteRecordInput,
         DeleteRecordOutput
     >({
-        route: v1APIRoute.deleteRecord,
+        route: FireTableAPIRoute.deleteRecord,
         body: {
             tableId,
             recordId: args.recordId,
