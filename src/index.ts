@@ -3,6 +3,7 @@ import { FiretableConfig } from './types';
 import {
     getCurrentUser,
     loginWithEmail,
+    signupWithEmail,
     logoutFromFiretable,
     validateSession,
 } from './auth';
@@ -26,6 +27,7 @@ export {
     initializeApp,
     getCurrentUser,
     loginWithEmail,
+    signupWithEmail,
     logoutFromFiretable,
     validateSession,
     fetchRecord,

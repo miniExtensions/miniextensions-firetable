@@ -4,6 +4,10 @@ import {
     LoginWithEmailOutput,
 } from '../api/routes/loginWithEmail';
 import {
+    SignupWithEmailInput,
+    SignupWithEmailOutput,
+} from '../api/routes/signupWithEmail';
+import {
     ValidateSessionInput,
     ValidateSessionOutput,
 } from '../api/routes/validateSession';
@@ -68,6 +72,42 @@ export const loginWithEmail = async (args: {
         LoginWithEmailOutput
     >({
         route: FireTableAPIRoute.loginWithEmail,
+        body: {
+            email,
+            password,
+            publicKey,
+        },
+    });
+
+    if (result.type === 'error') throw new Error(result.message);
+
+    setState({
+        ...getState(),
+        sessionToken: result.data.sessionToken,
+    });
+
+    return {
+        user: result.data.user,
+        sessionToken: result.data.sessionToken,
+    };
+};
+
+export const signupWithEmail = async (args: {
+    email: string;
+    password: string;
+}): Promise<{ user: FiretableUser; sessionToken: string }> => {
+    const state = getState();
+    if (!state) throw new Error('Firetable not initialized');
+    if (state.sessionToken) throw new Error('Already logged in');
+
+    const { publicKey } = state.config;
+    const { email, password } = args;
+
+    const result = await executeApiRequest<
+        SignupWithEmailInput,
+        SignupWithEmailOutput
+    >({
+        route: FireTableAPIRoute.signupWithEmail,
         body: {
             email,
             password,

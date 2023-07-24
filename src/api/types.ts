@@ -3,6 +3,7 @@ export enum FireTableAPIRoute {
     fetchRecord = 'fetchRecord',
     validateSession = 'validateSession',
     loginWithEmail = 'loginWithEmail',
+    signupWithEmail = 'signupWithEmail',
     listRecords = 'listRecords',
     updateRecord = 'updateRecord',
     deleteRecord = 'deleteRecord',
