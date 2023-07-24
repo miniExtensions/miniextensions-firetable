@@ -31,7 +31,7 @@ export const fetchRecord = async <T extends object>(args: {
 
     const { sessionToken } = state;
 
-    if (!sessionToken) throw new Error('No session to fetch record from');
+    if (!sessionToken) throw new Error('No logged in user');
 
     const { tableId, recordId } = args;
 
@@ -66,7 +66,7 @@ export const listRecords = async <T extends object>(args: {
 
     const { sessionToken } = state;
 
-    if (!sessionToken) throw new Error('No session to fetch record from');
+    if (!sessionToken) throw new Error('No logged in user');
 
     const { tableId, offset, sort, filter } = args;
 
@@ -101,7 +101,7 @@ export const createRecord = async <T extends object>(args: {
 
     const { sessionToken } = state;
 
-    if (!sessionToken) throw new Error('No session to fetch record from');
+    if (!sessionToken) throw new Error('No logged in user');
 
     const { tableId } = args;
 
@@ -131,7 +131,7 @@ export const updateRecord = async <T extends object>(args: {
 
     const { sessionToken } = state;
 
-    if (!sessionToken) throw new Error('No session to fetch record from');
+    if (!sessionToken) throw new Error('No logged in user');
 
     const { tableId } = args;
 
@@ -161,7 +161,7 @@ export const deleteRecord = async (args: {
 
     const { sessionToken } = state;
 
-    if (!sessionToken) throw new Error('No session to fetch record from');
+    if (!sessionToken) throw new Error('No logged in user');
 
     const { tableId } = args;
 
