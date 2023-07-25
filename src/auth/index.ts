@@ -15,7 +15,7 @@ import { FireTableAPIRoute } from '../api/types';
 import { getPublicKeyFromState, getState, setState } from '../state';
 import { FiretableUser } from './types';
 
-export const getCurrentUser = async (): Promise<FiretableUser> => {
+export const getCurrentUser = (): FiretableUser => {
     const state = getState();
     if (!state) throw new Error('Firetable not initialized');
 
