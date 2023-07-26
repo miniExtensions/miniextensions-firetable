@@ -1,5 +1,13 @@
 import { executeApiRequest } from '../api';
 import {
+    ChangeUserEmailInput,
+    ChangeUserEmailOutput,
+} from '../api/routes/changeUserEmail';
+import {
+    ChangeUserPasswordInput,
+    ChangeUserPasswordOutput,
+} from '../api/routes/changeUserPassword';
+import {
     LoginWithEmailInput,
     LoginWithEmailOutput,
 } from '../api/routes/loginWithEmail';
@@ -46,13 +54,16 @@ export const validateSession = async (args: {
 
     if (result.type === 'error') throw new Error(result.message);
 
+    const { user } = result.data;
+
     setState({
         ...getState(),
+        currentUser: user,
         sessionToken,
     });
 
     return {
-        user: result.data.user,
+        user,
     };
 };
 
@@ -81,14 +92,17 @@ export const loginWithEmail = async (args: {
 
     if (result.type === 'error') throw new Error(result.message);
 
+    const { user, sessionToken } = result.data;
+
     setState({
         ...getState(),
-        sessionToken: result.data.sessionToken,
+        sessionToken,
+        currentUser: user,
     });
 
     return {
-        user: result.data.user,
-        sessionToken: result.data.sessionToken,
+        user,
+        sessionToken,
     };
 };
 
@@ -117,14 +131,17 @@ export const signupWithEmail = async (args: {
 
     if (result.type === 'error') throw new Error(result.message);
 
+    const { user, sessionToken } = result.data;
+
     setState({
         ...getState(),
-        sessionToken: result.data.sessionToken,
+        sessionToken,
+        currentUser: user,
     });
 
     return {
-        user: result.data.user,
-        sessionToken: result.data.sessionToken,
+        user,
+        sessionToken,
     };
 };
 
@@ -139,5 +156,88 @@ export const logoutFromFiretable = async (): Promise<void> => {
     setState({
         ...getState(),
         sessionToken: null,
+        currentUser: null,
     });
+};
+
+export const changeUserEmail = async (args: {
+    password: string;
+    newEmail: string;
+}): Promise<{ user: FiretableUser; sessionToken: string }> => {
+    const state = getState();
+    if (!state) throw new Error('Firetable not initialized');
+    const { sessionToken: existingSessionToken } = state;
+    if (!existingSessionToken) throw new Error('No logged in user');
+
+    const { publicKey } = state.config;
+    const { newEmail, password } = args;
+
+    const result = await executeApiRequest<
+        ChangeUserEmailInput,
+        ChangeUserEmailOutput
+    >({
+        route: FireTableAPIRoute.changeUserEmail,
+        body: {
+            newEmail,
+            password,
+            publicKey,
+            sessionToken: existingSessionToken,
+        },
+    });
+
+    if (result.type === 'error') throw new Error(result.message);
+
+    const { user: newUser, sessionToken: newSessionToken } = result.data;
+
+    setState({
+        ...getState(),
+        currentUser: newUser,
+        sessionToken: newSessionToken,
+    });
+
+    return {
+        user: newUser,
+        sessionToken: newSessionToken,
+    };
+};
+
+export const changeUserPassword = async (args: {
+    existingPassword: string;
+    newPassword: string;
+}): Promise<{ user: FiretableUser; sessionToken: string }> => {
+    const state = getState();
+    if (!state) throw new Error('Firetable not initialized');
+    const { sessionToken: existingSessionToken } = state;
+    if (!existingSessionToken) throw new Error('No logged in user');
+
+    const { publicKey } = state.config;
+    const { existingPassword, newPassword } = args;
+
+    const result = await executeApiRequest<
+        ChangeUserPasswordInput,
+        ChangeUserPasswordOutput
+    >({
+        route: FireTableAPIRoute.changeUserPassword,
+        body: {
+            existingPassword,
+            newPassword,
+            publicKey,
+            sessionToken: existingSessionToken,
+        },
+    });
+
+    if (result.type === 'error') throw new Error(result.message);
+
+    const { user: newUser, sessionToken: newSessionToken } = result.data;
+
+    setState({
+        ...getState(),
+        currentUser: newUser,
+        sessionToken: newSessionToken,
+    });
+
+    return {
+        user: newUser,
+        sessionToken: newSessionToken,
+    };
 };
