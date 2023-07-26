@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { FireTableAPIRoute, ExecuteApiRequestResult } from './types';
+import { getState } from '../state';
 
 interface CommonArgs {
     route: FireTableAPIRoute;
@@ -17,8 +18,6 @@ interface GETArgs<Input> extends CommonArgs {
 
 type Args<Input> = POSTArgs<Input> | GETArgs<Input>;
 
-const devMode = true;
-
 export const executeApiRequest = async <Input extends object, Output>(
     args: Args<Input>
 ): Promise<ExecuteApiRequestResult<Output>> => {
@@ -26,9 +25,11 @@ export const executeApiRequest = async <Input extends object, Output>(
         const input: Input =
             args.method === 'GET' ? args.queryParams : args.body;
 
-        const url = `${
-            devMode ? 'http://localhost:3000' : 'https://web.miniextensions.com'
-        }/api/firetable/v1?route=${encodeURIComponent(args.route)}${
+        const baseUrl = getState().baseUrl;
+
+        const url = `${baseUrl}/api/firetable/v1?route=${encodeURIComponent(
+            args.route
+        )}${
             args.method === 'GET' && Object.keys(args.queryParams).length > 0
                 ? '&executeApiRequestQueryParams=' +
                   encodeURIComponent(JSON.stringify(args.queryParams))

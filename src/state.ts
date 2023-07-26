@@ -5,6 +5,7 @@ type State = {
     config: FiretableConfig;
     sessionToken: string | null;
     currentUser: FiretableUser | null;
+    baseUrl: string;
 };
 
 let state: State | null = null;
@@ -16,6 +17,10 @@ export const setState = (newState: State): void => {
 export const getState = (): State => {
     if (!state) throw new Error('Firetable not initialized');
     return state;
+};
+
+export const isAlreadyInitialized = (): boolean => {
+    return state != null;
 };
 
 export const getPublicKeyFromState = (state: State): string => {

@@ -1,4 +1,4 @@
-import { setState } from './state';
+import { isAlreadyInitialized, setState } from './state';
 import { FiretableConfig } from './types';
 import {
     getCurrentUser,
@@ -16,11 +16,19 @@ import {
 } from './airtable';
 import { firetableUsersFieldName } from './firetableUsersFieldName';
 
-const initializeApp = (args: { config: FiretableConfig }): void => {
+const initializeApp = (args: {
+    config: FiretableConfig;
+    apiBaseUrlOverride?: string;
+}): void => {
+    if (isAlreadyInitialized()) {
+        throw new Error('Firetable already initialized');
+    }
+
     setState({
         config: args.config,
         sessionToken: null,
         currentUser: null,
+        baseUrl: args.apiBaseUrlOverride ?? 'https://web.miniextensions.com',
     });
 };
 
