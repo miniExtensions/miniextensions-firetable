@@ -14,6 +14,7 @@ import {
     updateRecord,
     deleteRecord,
 } from './airtable';
+import { FiretableUser } from './auth/types';
 import { firetableUsersFieldName } from './firetableUsersFieldName';
 
 const initializeApp = (args: {
@@ -41,4 +42,5 @@ export {
     updateRecord,
     deleteRecord,
     firetableUsersFieldName,
+    FiretableUser,
 };

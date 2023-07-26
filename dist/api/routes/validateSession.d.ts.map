@@ -1,0 +1,1 @@
+{"version":3,"file":"validateSession.d.ts","sourceRoot":"","sources":["../../../src/api/routes/validateSession.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,MAAM,kBAAkB,CAAC;AAEjD,MAAM,MAAM,oBAAoB,GAAG;IAC/B,SAAS,EAAE,MAAM,CAAC;IAClB,YAAY,EAAE,MAAM,CAAC;CACxB,CAAC;AAEF,MAAM,MAAM,qBAAqB,GAAG;IAChC,IAAI,EAAE,aAAa,CAAC;CACvB,CAAC"}

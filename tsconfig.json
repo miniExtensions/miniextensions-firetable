@@ -1,13 +1,23 @@
 {
     "compilerOptions": {
         "outDir": "./lib",
+        "sourceMap": true,
+        "strict": false,
+        "strictNullChecks": true,
+        "noImplicitAny": false,
+        "esModuleInterop": true,
+        "allowJs": true,
+        "resolveJsonModule": true,
         "module": "commonjs",
-        "target": "es6",
+        "target": "es2017",
+        "stripInternal": true,
+        "removeComments": true,
+        "declarationMap": true,
         "declaration": true,
-        "strict": true,
         "skipLibCheck": true,
-        "useUnknownInCatchVariables": false
+        "useUnknownInCatchVariables": false,
+        "rootDir": "src"
     },
-    "include": ["src"],
+    "include": ["src/**/*"],
     "exclude": ["node_modules", "**/__tests__/*"]
 }
