@@ -1,6 +1,6 @@
 {
     "name": "miniextensions-firetable",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Frontend JS SDK for Airtable",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
@@ -9,6 +9,7 @@
         "lint": "eslint . --ext .ts",
         "test": "jest --config jestconfig.json",
         "prepare": "npm run build",
+        "prepublish": "npm run build",
         "preversion": "npm run lint",
         "version": "git add -A src",
         "postversion": "git push && git push --tags",
