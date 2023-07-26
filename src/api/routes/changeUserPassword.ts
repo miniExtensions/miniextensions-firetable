@@ -1,5 +1,3 @@
-import { FiretableUser } from '../../auth/types';
-
 export type ChangeUserPasswordInput = {
     publicKey: string;
     sessionToken: string;
@@ -8,6 +6,5 @@ export type ChangeUserPasswordInput = {
 };
 
 export type ChangeUserPasswordOutput = {
-    user: FiretableUser;
     sessionToken: string;
 };

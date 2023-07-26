@@ -8,6 +8,6 @@ export type ChangeUserEmailInput = {
 };
 
 export type ChangeUserEmailOutput = {
-    user: FiretableUser;
-    sessionToken: string;
+    updatedUser: FiretableUser;
+    newSessionToken: string;
 };

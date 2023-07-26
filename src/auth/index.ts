@@ -163,7 +163,7 @@ export const logoutFromFiretable = async (): Promise<void> => {
 export const changeUserEmail = async (args: {
     password: string;
     newEmail: string;
-}): Promise<{ user: FiretableUser; sessionToken: string }> => {
+}): Promise<{ updatedUser: FiretableUser; newSessionToken: string }> => {
     const state = getState();
     if (!state) throw new Error('Firetable not initialized');
     const { sessionToken: existingSessionToken } = state;
@@ -187,24 +187,24 @@ export const changeUserEmail = async (args: {
 
     if (result.type === 'error') throw new Error(result.message);
 
-    const { user: newUser, sessionToken: newSessionToken } = result.data;
+    const { updatedUser, newSessionToken } = result.data;
 
     setState({
         ...getState(),
-        currentUser: newUser,
+        currentUser: updatedUser,
         sessionToken: newSessionToken,
     });
 
     return {
-        user: newUser,
-        sessionToken: newSessionToken,
+        updatedUser,
+        newSessionToken,
     };
 };
 
 export const changeUserPassword = async (args: {
     existingPassword: string;
     newPassword: string;
-}): Promise<{ user: FiretableUser; sessionToken: string }> => {
+}): Promise<{ newSessionToken: string }> => {
     const state = getState();
     if (!state) throw new Error('Firetable not initialized');
     const { sessionToken: existingSessionToken } = state;
@@ -228,16 +228,14 @@ export const changeUserPassword = async (args: {
 
     if (result.type === 'error') throw new Error(result.message);
 
-    const { user: newUser, sessionToken: newSessionToken } = result.data;
+    const { sessionToken: newSessionToken } = result.data;
 
     setState({
         ...getState(),
-        currentUser: newUser,
         sessionToken: newSessionToken,
     });
 
     return {
-        user: newUser,
-        sessionToken: newSessionToken,
+        newSessionToken,
     };
 };
