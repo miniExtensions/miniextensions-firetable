@@ -228,7 +228,7 @@ export const changeUserPassword = async (args: {
 
     if (result.type === 'error') throw new Error(result.message);
 
-    const { sessionToken: newSessionToken } = result.data;
+    const { newSessionToken } = result.data;
 
     setState({
         ...getState(),

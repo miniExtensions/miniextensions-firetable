@@ -6,5 +6,5 @@ export type ChangeUserPasswordInput = {
 };
 
 export type ChangeUserPasswordOutput = {
-    sessionToken: string;
+    newSessionToken: string;
 };
