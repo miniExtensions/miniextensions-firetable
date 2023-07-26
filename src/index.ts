@@ -14,6 +14,7 @@ import {
     updateRecord,
     deleteRecord,
 } from './airtable';
+import { firetableUsersFieldName } from './firetableUsersFieldName';
 
 const initializeApp = (args: { config: FiretableConfig }): void => {
     setState({
@@ -35,4 +36,5 @@ export {
     createRecord,
     updateRecord,
     deleteRecord,
+    firetableUsersFieldName,
 };
