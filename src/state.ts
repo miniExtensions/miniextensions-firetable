@@ -19,10 +19,6 @@ export const getState = (): State => {
     return state;
 };
 
-export const isAlreadyInitialized = (): boolean => {
-    return state != null;
-};
-
 export const getPublicKeyFromState = (state: State): string => {
     const { config } = state;
     const { publicKey } = config;

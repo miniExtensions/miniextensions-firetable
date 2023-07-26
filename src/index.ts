@@ -1,4 +1,4 @@
-import { isAlreadyInitialized, setState } from './state';
+import { setState } from './state';
 import { FiretableConfig } from './types';
 import {
     getCurrentUser,
@@ -20,10 +20,6 @@ const initializeApp = (args: {
     config: FiretableConfig;
     apiBaseUrlOverride?: string;
 }): void => {
-    if (isAlreadyInitialized()) {
-        throw new Error('Firetable already initialized');
-    }
-
     setState({
         config: args.config,
         sessionToken: null,
