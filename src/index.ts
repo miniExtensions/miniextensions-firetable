@@ -6,14 +6,14 @@ import {
     signupWithEmail,
     logoutFromFiretable,
     validateSession,
-} from './auth';
+} from './auth/auth';
 import {
     fetchRecord,
     listRecords,
     createRecord,
     updateRecord,
     deleteRecord,
-} from './airtable';
+} from './airtable/airtable';
 import { FiretableUser } from './auth/types';
 import { firetableUsersFieldName } from './firetableUsersFieldName';
 

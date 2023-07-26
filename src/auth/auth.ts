@@ -1,4 +1,4 @@
-import { executeApiRequest } from '../api';
+import { executeApiRequest } from '../api/api';
 import {
     ChangeUserEmailInput,
     ChangeUserEmailOutput,
