@@ -1,12 +1,18 @@
 ### Getting Started
 
-Add the package to your project:
+### Add the package
 
 ```bash
 yarn add miniextensions-firetable
 ```
 
-## Initialize Firetable
+or
+
+```bash
+npm install miniextensions-firetable
+```
+
+### Initialize Firetable
 
 ```ts
 import { initializeApp } from 'miniextensions-firetable';
