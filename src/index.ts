@@ -6,6 +6,8 @@ import {
     signupWithEmail,
     logoutFromFiretable,
     validateSession,
+    changeUserEmail,
+    changeUserPassword,
 } from './auth/auth';
 import {
     fetchRecord,
@@ -36,6 +38,8 @@ export {
     signupWithEmail,
     logoutFromFiretable,
     validateSession,
+    changeUserEmail,
+    changeUserPassword,
     fetchRecord,
     listRecords,
     createRecord,
