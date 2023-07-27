@@ -82,7 +82,7 @@ Make sure to persist `newSessionToken`. The old session token will no longer wor
 ```ts
 const { newSessionToken } = await changeUserPassword({
     existingPassword: '123456789', // ask the user to enter their existing password and pass it here.
-    newPassword: 'newPassword', // ask the user to enter their new password and pass it here.
+    newPassword: '987654321', // ask the user to enter their new password and pass it here.
 });
 ```
 
